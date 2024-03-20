@@ -7,6 +7,11 @@ export default function VideoList() {
     queryFn: getVideoList,
     staleTime: 1000 * 60 * 60,
   });
+
+  const onClickVideo = () => {
+    alert(111);
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -15,7 +20,26 @@ export default function VideoList() {
       <h1>Data:</h1>
       <ul>
         {data.items.map((item) => (
-          <li key={item.id.videoId}>{item.snippet.title}</li>
+          <li
+            key={item.id.videoId}
+            className="cursor-pointer border"
+            onClick={onClickVideo}
+          >
+            <div>
+              <img src={item.snippet.thumbnails.default.url} />
+            </div>
+            <div>title: {item.snippet.title}</div>
+            <div>channel: {item.snippet.channelTitle}</div>
+            <div>publishTime: {item.snippet.publishTime}</div>
+            <iframe
+              id="player"
+              type="text/html"
+              width="640"
+              height="390"
+              src={`http://www.youtube.com/embed/${item.id.videoId}?enablejsapi=1&origin=http://example.com`}
+              frameborder="0"
+            ></iframe>
+          </li>
         ))}
       </ul>
     </div>
