@@ -36,7 +36,7 @@ export default function VideoList() {
               type="text/html"
               width="640"
               height="390"
-              src={`http://www.youtube.com/embed/${item.id.videoId}?enablejsapi=1&origin=http://example.com`}
+              src={`http://www.youtube.com/embed/${item.id.videoId}?enablejsapi=1`}
               frameborder="0"
             ></iframe>
           </li>
