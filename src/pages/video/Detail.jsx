@@ -1,7 +1,11 @@
+import { useParams } from "react-router-dom";
+import VideoDetail from "../../components/VideoDetail";
+
 export default function Detail() {
+  const { videoId } = useParams();
   return (
     <div>
-      <h1>to do detail</h1>
+      <VideoDetail videoId={videoId} />
     </div>
   );
 }

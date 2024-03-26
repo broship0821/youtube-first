@@ -5,7 +5,6 @@ export default function Navbar() {
     <nav className="flex gap-10">
       <Link to="/">Youtube</Link>
       <input type="text" placeholder="영상 검색" />
-      <Link to="/video">Detail</Link>
     </nav>
   );
 }

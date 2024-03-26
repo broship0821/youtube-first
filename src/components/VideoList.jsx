@@ -1,5 +1,6 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getVideoList } from "../api/Video";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function VideoList() {
   const { isLoading, error, data } = useQuery({
@@ -7,9 +8,10 @@ export default function VideoList() {
     queryFn: getVideoList,
     staleTime: 1000 * 60 * 60,
   });
+  const navigate = useNavigate();
 
-  const onClickVideo = () => {
-    alert(111);
+  const onClickVideo = (videoId) => {
+    navigate(`/video/${videoId}`);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -17,13 +19,14 @@ export default function VideoList() {
 
   return (
     <div>
-      <h1>Data:</h1>
       <ul>
         {data.items.map((item) => (
           <li
             key={item.id.videoId}
             className="cursor-pointer border"
-            onClick={onClickVideo}
+            onClick={() => {
+              onClickVideo(item.id.videoId);
+            }}
           >
             <div>
               <img src={item.snippet.thumbnails.default.url} />
@@ -31,14 +34,6 @@ export default function VideoList() {
             <div>title: {item.snippet.title}</div>
             <div>channel: {item.snippet.channelTitle}</div>
             <div>publishTime: {item.snippet.publishTime}</div>
-            <iframe
-              id="player"
-              type="text/html"
-              width="640"
-              height="390"
-              src={`http://www.youtube.com/embed/${item.id.videoId}?enablejsapi=1`}
-              frameborder="0"
-            ></iframe>
           </li>
         ))}
       </ul>
