@@ -1,15 +1,11 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { getVideoList } from "../api/Video";
+import { useNavigate } from "react-router-dom";
 
 export default function VideoSearch() {
   const [keyword, setKeyword] = useState("");
-  const client = useQueryClient();
+  const navigate = useNavigate();
   const getSearchList = () => {
-    client.invalidateQueries(["videoList"], {
-      exact: false,
-      quertFn: (key, ...args) => getVideoList(...args, keyword),
-    });
+    navigate(`/${keyword}`);
   };
   const onChange = (e) => {
     setKeyword(e.target.value);
