@@ -3,16 +3,11 @@ import { getVideoList } from "../api/Video";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function VideoList({ keyword = "" }) {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["videoList"],
-    queryFn: () => getVideoList(keyword),
-    staleTime: 1000 * 60 * 60,
-  });
-  const client = useQueryClient();
-  useEffect(() => {
-    client.invalidateQueries(["videoList"]);
-  }, [keyword]);
+export default function VideoList({ isLoading, error, data }) {
+  // const client = useQueryClient();
+  // useEffect(() => {
+  //   client.invalidateQueries(["videoList"]);
+  // }, [keyword]);
   const navigate = useNavigate();
 
   const onClickVideo = (videoId) => {
